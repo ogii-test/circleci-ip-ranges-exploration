@@ -2,11 +2,19 @@ version: 2.1
 
 jobs:
   fetch_files:
-    parallelism: 20
+    # parallelism: 20
     circleci_ip_ranges: true
     docker:
       - image: cimg/base:stable
     steps:
+      - run:
+          name: Verify CURL version
+          command: |
+            curl --version
+      - run:
+          name: Print env vars
+          command: |
+            echo "${NO_PROXY}"
       - run:
           name: Check external IP address
           command: |

@@ -1,15 +1,18 @@
 version: 2.1
 
 jobs:
-  echo:
+  fetch_files:
     docker:
       - image: cimg/base:stable
     steps:
       - run:
-          name: Greet
-          command: echo "I love ${COLOR} builds."
-          environment:
-            COLOR: "green"
+          name: Check external IP address
+          command: |
+            curl --retry 5 ipconfig.io
+      - run:
+          name: Fetch files
+          command: |
+            curl --retry 5 https://dnsjson.com/jobs.knownips.circleci.com/A.json
 
 workflows:
   main:

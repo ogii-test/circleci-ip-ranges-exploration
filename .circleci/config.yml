@@ -18,11 +18,11 @@ jobs:
       - run:
           name: Check external IP address
           command: |
-            curl --verbose --retry 5 ipconfig.io
+            curl --verbose --retry-connrefused --retry 5 ipconfig.io
       - run:
           name: Fetch files
           command: |
-            curl --verbose --retry 5 https://dnsjson.com/jobs.knownips.circleci.com/A.json | jq .
+            curl --verbose --retry-connrefused --retry 5 https://dnsjson.com/jobs.knownips.circleci.com/A.json | jq .
 
 workflows:
   main:

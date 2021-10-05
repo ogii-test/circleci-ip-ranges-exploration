@@ -2,28 +2,17 @@ version: 2.1
 
 jobs:
   fetch_files:
-    parallelism: 20
+    parallelism: 10
     circleci_ip_ranges: true
     docker:
       - image: cimg/base:stable
     steps:
       - run:
-          name: Verify CURL version
-          command: |
-            curl --version
-      - run:
-          name: Print env vars
-          command: |
-            echo "${NO_PROXY}"
-#       - run:
-#           name: Check external IP address
-#           command: |
-#             curl --verbose --retry-connrefused --retry 5 ipconfig.io
-      - run:
           name: Fetch files
           command: |
-            # try wget instead
+            # try wget to download JSON file
             wget -c https://dnsjson.com/jobs.knownips.circleci.com/A.json
+            jq "." A.json
 
 workflows:
   main:

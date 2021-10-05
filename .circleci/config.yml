@@ -2,6 +2,7 @@ version: 2.1
 
 jobs:
   fetch_files:
+    circleci_ip_ranges: true
     docker:
       - image: cimg/base:stable
     steps:
@@ -12,7 +13,7 @@ jobs:
       - run:
           name: Fetch files
           command: |
-            curl --retry 5 https://dnsjson.com/jobs.knownips.circleci.com/A.json
+            curl --retry 5 https://dnsjson.com/jobs.knownips.circleci.com/A.json | jq .
 
 workflows:
   main:
